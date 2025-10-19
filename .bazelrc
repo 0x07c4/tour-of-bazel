@@ -1,0 +1,33 @@
+# ==========================================
+# 全局默认配置
+# ==========================================
+build --keep_going
+build --show_timestamps
+build --color=yes
+build --verbose_failures
+
+# ==========================================
+# Debug 配置
+# ==========================================
+build:debug --compilation_mode=dbg
+build:debug --strip=never
+build:debug --features=dbg
+
+build:debug --copt=-g
+build:debug --copt=-O0
+build:debug --copt=-fno-omit-frame-pointer
+build:debug --copt=-fno-optimize-sibling-calls
+build:debug --copt=-DDEBUG
+build:debug --linkopt="-rdynamic"
+
+# ==========================================
+# Release 配置
+# ==========================================
+build:release --compilation_mode=opt
+build:release --strip=always
+build:release --features=fastbuild
+
+build:release --copt=-O2
+build:release --copt=-DNDEBUG
+# build:release --copt=-march=native
+build:release --linkopt="-s"

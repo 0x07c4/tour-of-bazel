@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ 设置 Bazel 环境（这里用的就是你提到的 Action）
+      # 2️⃣ 设置 Bazel 环境
       - name: Setup Bazel environment
         uses: bazel-contrib/setup-bazel@0.15.0
         with:
@@ -25,10 +25,15 @@ jobs:
           # Share repository cache between workflows.
           repository-cache: true
       # 3️⃣ 构建项目
-      - name: Build with Bazel
-        run: bazel build //...
+      - name: Build (Debug)
+        run: |
+          bazel build --config=debug //...
+      - name: Build (Release)
+        run: |
+          bazel build --config=release //...
 
       # 4️⃣ 运行测试
       - name: Run tests
-        run: bazel test //...
+        run: |
+          bazel test --config=debug //tests:all
 
